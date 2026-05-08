@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cur8 v1 Prototype</title>
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="workspace" aria-label="Cur8 prototype">
+      <section class="phone-shell">
+        <div class="phone">
+          <div class="status-bar" aria-hidden="true">
+            <span>9:41</span>
+            <span>5G&nbsp;&nbsp;100%</span>
+          </div>
+
+          <header class="app-header">
+            <button class="icon-button back-button" type="button" aria-label="Back" hidden>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+            </button>
+            <div>
+              <p class="eyebrow" id="header-eyebrow">Iowa City beta</p>
+              <h1 id="header-title">Cur8</h1>
+            </div>
+            <button class="mode-button" type="button" id="mode-toggle">Hosting</button>
+          </header>
+
+          <section class="screen active" id="screen-home" aria-label="Browse chefs">
+            <div class="hero-card">
+              <img
+                alt="Private dining table with candlelight"
+                src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=900&q=80"
+              />
+              <div>
+                <p>Private parties, corporate tables, and chef-curated Quick Plates.</p>
+                <button class="primary-button" type="button" data-nav="search">Explore Chefs</button>
+              </div>
+            </div>
+
+            <div class="section-row">
+              <h2>Local Chefs</h2>
+              <button class="text-button" type="button" id="map-toggle">Map</button>
+            </div>
+
+            <div class="filter-row" aria-label="Chef filters">
+              <button class="chip active" type="button" data-filter="all">All</button>
+              <button class="chip" type="button" data-filter="quickPlates">Quick Plates</button>
+              <button class="chip" type="button" data-filter="privateDining">Private Dining</button>
+              <button class="chip" type="button" data-filter="servsafe">ServSafe</button>
+              <button class="chip" type="button" data-filter="signature">Signature</button>
+            </div>
+
+            <div class="map-panel" id="map-panel" hidden>
+              <div class="map-grid" aria-hidden="true">
+                <span class="pin pin-a">M</span>
+                <span class="pin pin-b">J</span>
+                <span class="pin pin-c">A</span>
+                <span class="pin pin-d">R</span>
+              </div>
+              <p>Approximate chef areas only. Exact addresses are shared after confirmation.</p>
+            </div>
+
+            <div class="chef-list" id="chef-list"></div>
+          </section>
+
+          <section class="screen" id="screen-search" aria-label="Search">
+            <label class="search-box">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="11" cy="11" r="7" />
+                <path d="M20 20l-4.5-4.5" />
+              </svg>
+              <input id="search-input" type="search" placeholder="Search cuisine, chef, or city" />
+            </label>
+            <div class="filter-grid">
+              <button class="filter-card" type="button" data-search="Mediterranean">Mediterranean</button>
+              <button class="filter-card" type="button" data-search="BBQ">BBQ</button>
+              <button class="filter-card" type="button" data-search="Indian">Indian</button>
+              <button class="filter-card" type="button" data-search="Corporate">Corporate</button>
+            </div>
+            <div class="chef-list compact" id="search-results"></div>
+          </section>
+
+          <section class="screen" id="screen-profile" aria-label="Chef profile">
+            <div id="profile-content"></div>
+          </section>
+
+          <section class="screen" id="screen-request" aria-label="Booking request">
+            <form class="request-form" id="request-form">
+              <h2 id="request-title">Request Booking</h2>
+              <p class="muted" id="request-subtitle">Chef approval is required before any deposit is paid.</p>
+
+              <label>
+                Event type
+                <select id="event-type">
+                  <option>Private Dining</option>
+                  <option>Chef-Hosted Dining</option>
+                  <option>Quick Plates</option>
+                  <option>Custom Curated Meal</option>
+                </select>
+              </label>
+
+              <label>
+                Preferred date
+                <input type="date" required />
+              </label>
+
+              <label>
+                Start time
+                <input type="time" required />
+              </label>
+
+              <label>
+                Guests or servings
+                <input type="number" min="10" max="50" value="12" required />
+              </label>
+
+              <fieldset>
+                <legend>Any dietary restrictions?</legend>
+                <label class="radio-line"><input name="dietary" type="radio" value="no" checked /> No</label>
+                <label class="radio-line"><input name="dietary" type="radio" value="yes" /> Yes</label>
+              </fieldset>
+
+              <label>
+                Budget range for custom/full-service requests
+                <select>
+                  <option>Not applicable</option>
+                  <option>$500-$1,000</option>
+                  <option>$1,000-$2,500</option>
+                  <option>$2,500-$5,000</option>
+                  <option>$5,000+</option>
+                </select>
+              </label>
+
+              <label>
+                Notes
+                <textarea placeholder="Occasion, service needs, delivery/pickup preference, or special context"></textarea>
+              </label>
+
+              <div class="price-summary">
+                <div><span>Estimated total</span><strong id="estimated-total">$840</strong></div>
+                <div><span>25% deposit after agreement</span><strong id="estimated-deposit">$210</strong></div>
+              </div>
+
+              <button class="primary-button" type="submit">Submit Request</button>
+            </form>
+          </section>
+
+          <section class="screen" id="screen-wallet" aria-label="Wallet and gift cards">
+            <div class="wallet-card">
+              <p class="eyebrow">Cur8 Wallet</p>
+              <h2>$250.00</h2>
+              <p>Gift card balance applies automatically before card payment.</p>
+            </div>
+            <div class="gift-card-panel">
+              <h2>Send a Cur8 Gift Card</h2>
+              <label>Amount <input type="text" value="$250" /></label>
+              <label>Recipient email <input type="email" placeholder="name@example.com" /></label>
+              <label>Message <textarea placeholder="Enjoy a table worth remembering."></textarea></label>
+              <button class="primary-button" type="button">Preview Gift</button>
+            </div>
+          </section>
+
+          <section class="screen" id="screen-host" aria-label="Hosting dashboard">
+            <div class="dashboard-card">
+              <p class="eyebrow">Hosting dashboard</p>
+              <h2>Welcome, Maya</h2>
+              <div class="metric-grid">
+                <div><strong>$2,530</strong><span>Earnings</span></div>
+                <div><strong>18</strong><span>Bookings</span></div>
+                <div><strong>4.9</strong><span>Rating</span></div>
+                <div><strong>312</strong><span>Views</span></div>
+              </div>
+            </div>
+            <div class="dashboard-card">
+              <div class="section-row">
+                <h2>Requests</h2>
+                <span class="badge warm">2 new</span>
+              </div>
+              <div class="request-item">
+                <strong>Corporate lunch for 24</strong>
+                <span>Quick Plates · May 18 · Iowa City</span>
+                <div>
+                  <button type="button">Suggest change</button>
+                  <button type="button">Accept</button>
+                </div>
+              </div>
+              <div class="request-item">
+                <strong>Private dinner for 12</strong>
+                <span>Farm-to-table · May 23 · Coralville</span>
+                <div>
+                  <button type="button">Decline</button>
+                  <button type="button">Accept</button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <nav class="tab-bar" aria-label="Main navigation">
+            <button class="tab active" type="button" data-nav="home">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-8 9 8" /><path d="M5 10v10h14V10" /></svg>
+              Home
+            </button>
+            <button class="tab" type="button" data-nav="search">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M20 20l-4.5-4.5" /></svg>
+              Search
+            </button>
+            <button class="tab" type="button" data-nav="wallet">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v12H4z" /><path d="M16 12h4" /></svg>
+              Wallet
+            </button>
+            <button class="tab" type="button" data-nav="host">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4" /><path d="M4 21c1.8-4 14.2-4 16 0" /></svg>
+              Profile
+            </button>
+          </nav>
+        </div>
+      </section>
+
+      <aside class="notes-panel" aria-label="Prototype notes">
+        <p class="eyebrow">Cur8 v1</p>
+        <h2>Investor-ready beta prototype</h2>
+        <p>
+          This first build turns your blueprint into a clickable mobile experience:
+          chef-first discovery, Quick Plates badges, request-first booking, wallet,
+          gift cards, hosting mode, and trust signals.
+        </p>
+        <div class="notes-list">
+          <span>Launch area: Iowa City, Coralville, North Liberty, Tiffin</span>
+          <span>25% deposit after agreement</span>
+          <span>Final payment at scheduled event time</span>
+          <span>Signature Chef: 25 bookings + 4.8 rating</span>
+        </div>
+      </aside>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
